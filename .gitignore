@@ -1,0 +1,9 @@
+.idea/
+*.iml
+.env
+
+# Logs
+logs/
+*.log
+/build/
+/temp/*
