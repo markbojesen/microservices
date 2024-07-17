@@ -22,11 +22,7 @@ public class CustomerService {
 
         // todo: check if email is valid
         // todo: check if email is not taken
-        FraudCheckResponse response = restTemplate.getForObject(
-                "http://localhost:8081/api/v1/fraud-check/{customerId}",
-                FraudCheckResponse.class,
-                customer.getId()
-        );
+        FraudCheckResponse response = restTemplate.getForObject("http://FRAUD:8081/api/v1/fraud-check/{customerId}", FraudCheckResponse.class, customer.getId());
 
         if (response.isFraudster()) {
             throw new IllegalStateException("Fraudster!");
