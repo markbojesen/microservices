@@ -13,6 +13,7 @@
   <url>http://www.programmingsucks.wtf</url>
   <modules>
     <module>customer</module>
+      <module>fraud</module>
   </modules>
 
   <properties>
