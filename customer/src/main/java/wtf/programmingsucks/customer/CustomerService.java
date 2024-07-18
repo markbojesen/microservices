@@ -3,6 +3,8 @@ package wtf.programmingsucks.customer;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import wtf.programmingsucks.clients.fraud.FraudCheckResponse;
+import wtf.programmingsucks.clients.fraud.FraudClient;
 
 @Service
 @AllArgsConstructor
@@ -10,7 +12,8 @@ public class CustomerService {
 
     private final CustomerRepository repository;
     private final RestTemplate restTemplate;
-
+    private final FraudClient fraudClient;
+    
     public void registerCustomer(CustomerRegitrationRequest request) {
         Customer customer = Customer.builder()
                 .firstName(request.firstName())
@@ -22,7 +25,8 @@ public class CustomerService {
 
         // todo: check if email is valid
         // todo: check if email is not taken
-        FraudCheckResponse response = restTemplate.getForObject("http://FRAUD:8081/api/v1/fraud-check/{customerId}", FraudCheckResponse.class, customer.getId());
+
+        FraudCheckResponse response = fraudClient.isFraudster(customer.getId());
 
         if (response.isFraudster()) {
             throw new IllegalStateException("Fraudster!");
