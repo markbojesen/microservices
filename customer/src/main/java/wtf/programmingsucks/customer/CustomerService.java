@@ -1,19 +1,23 @@
 package wtf.programmingsucks.customer;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import wtf.programmingsucks.clients.fraud.FraudCheckResponse;
 import wtf.programmingsucks.clients.fraud.FraudClient;
+import wtf.programmingsucks.clients.notification.NotificationClient;
+import wtf.programmingsucks.clients.notification.NotificationRequest;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class CustomerService {
 
     private final CustomerRepository repository;
-    private final RestTemplate restTemplate;
     private final FraudClient fraudClient;
-    
+    private final NotificationClient notificationClient;
+
     public void registerCustomer(CustomerRegitrationRequest request) {
         Customer customer = Customer.builder()
                 .firstName(request.firstName())
@@ -31,6 +35,14 @@ public class CustomerService {
         if (response.isFraudster()) {
             throw new IllegalStateException("Fraudster!");
         }
+
+        // todo: make async
+        notificationClient.sendNotification(
+                new NotificationRequest(
+                        customer.getId(),
+                        customer.getEmail(),
+                        String.format("Hi %s, welcome to programming sucks!", customer.getFirstName()))
+        );
 
         // todo: send notification
     }

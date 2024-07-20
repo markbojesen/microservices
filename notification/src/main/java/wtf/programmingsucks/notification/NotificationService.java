@@ -15,12 +15,11 @@ public class NotificationService {
     public void send(NotificationRequest notificationRequest) {
         repository.save(
                 Notification.builder()
-                        .toCustomer(notificationRequest.toCustomer())
+                        .toCustomerId(notificationRequest.toCustomerId())
                         .toCustomerEmail(notificationRequest.toCustomerEmail())
                         .sender("programming sucks wtf")
                         .message(notificationRequest.message())
                         .sentAt(LocalDateTime.now())
-                        .build()
-        )
+                        .build());
     }
 }

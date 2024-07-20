@@ -1,4 +1,9 @@
 package wtf.programmingsucks.clients.notification;
 
-public record NotificationRequest(boolean hasSentNotification) {
+import java.time.LocalDateTime;
+
+public record NotificationRequest(
+        Integer toCustomerId,
+        String toCustomerEmail,
+        String message) {
 }
