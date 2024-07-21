@@ -3,7 +3,6 @@ package wtf.programmingsucks.customer;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import wtf.programmingsucks.clients.fraud.FraudCheckResponse;
 import wtf.programmingsucks.clients.fraud.FraudClient;
 import wtf.programmingsucks.clients.notification.NotificationClient;
@@ -18,7 +17,7 @@ public class CustomerService {
     private final FraudClient fraudClient;
     private final NotificationClient notificationClient;
 
-    public void registerCustomer(CustomerRegitrationRequest request) {
+    public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder()
                 .firstName(request.firstName())
                 .lastName(request.lastName())

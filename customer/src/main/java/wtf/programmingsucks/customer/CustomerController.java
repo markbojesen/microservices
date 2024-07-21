@@ -18,9 +18,9 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping
-    public ResponseEntity<Void> registerCustomer(@RequestBody CustomerRegitrationRequest customerRegitrationRequest) {
-        log.info("New customer registration: {}", customerRegitrationRequest);
-        customerService.registerCustomer(customerRegitrationRequest);
+    public ResponseEntity<Void> registerCustomer(@RequestBody CustomerRegistrationRequest customerRegistrationRequest) {
+        log.info("New customer registration: {}", customerRegistrationRequest);
+        customerService.registerCustomer(customerRegistrationRequest);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -1,6 +1,6 @@
 package wtf.programmingsucks.customer;
 
-public record CustomerRegitrationRequest(
+public record CustomerRegistrationRequest(
         String firstName,
         String lastName,
         String email
