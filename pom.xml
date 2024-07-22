@@ -17,6 +17,7 @@
       <module>eureka-server</module>
       <module>clients</module>
       <module>notification</module>
+      <module>apigw</module>
   </modules>
 
   <properties>
@@ -62,6 +63,12 @@
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-openfeign</artifactId>
     </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-all</artifactId>
+      <version>4.1.94.Final</version> <!-- or the latest version -->
+    </dependency>
+
   </dependencies>
 
   <build>
