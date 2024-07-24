@@ -3,6 +3,7 @@ package wtf.programmingsucks.customer;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import wtf.programmingsucks.amqp.RabbitMQMessageProducer;
 import wtf.programmingsucks.clients.fraud.FraudCheckResponse;
 import wtf.programmingsucks.clients.fraud.FraudClient;
 import wtf.programmingsucks.clients.notification.NotificationClient;
@@ -15,7 +16,7 @@ public class CustomerService {
 
     private final CustomerRepository repository;
     private final FraudClient fraudClient;
-    private final NotificationClient notificationClient;
+    private final RabbitMQMessageProducer producer;
 
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder()
@@ -36,13 +37,11 @@ public class CustomerService {
         }
 
         // todo: make async
-        notificationClient.sendNotification(
-                new NotificationRequest(
-                        customer.getId(),
-                        customer.getEmail(),
-                        String.format("Hi %s, welcome to programming sucks!", customer.getFirstName()))
-        );
+        NotificationRequest notificationRequest = new NotificationRequest(
+                customer.getId(),
+                customer.getEmail(),
+                String.format("Hi %s, welcome to programming sucks!", customer.getFirstName()));
 
-        // todo: send notification
+        producer.publish(notificationRequest, "internal.exchange", "internal.notification.routing-key");
     }
 }
