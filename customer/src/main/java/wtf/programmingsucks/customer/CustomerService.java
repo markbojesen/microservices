@@ -36,7 +36,6 @@ public class CustomerService {
             throw new IllegalStateException("Fraudster!");
         }
 
-        // todo: make async
         NotificationRequest notificationRequest = new NotificationRequest(
                 customer.getId(),
                 customer.getEmail(),
