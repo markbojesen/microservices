@@ -8,4 +8,4 @@ logs/
 /build/
 /temp/*
 
-**/target
+**/target/*
