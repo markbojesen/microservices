@@ -9,3 +9,5 @@ logs/
 /temp/*
 
 */target/*
+
+.DS_Store
